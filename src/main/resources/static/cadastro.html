@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financas Pro - Cadastro</title>
+    <meta name="description" content="Crie sua conta no Financas Pro">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body auth-register">
+    <main class="auth-layout">
+        <section class="auth-panel">
+            <div class="auth-brand">
+                <span class="material-icons-outlined">account_balance_wallet</span>
+                <strong>Financas Pro</strong>
+            </div>
+            <div class="auth-highlight">
+                <h2>Crie sua base para decisoes financeiras melhores.</h2>
+                <p>Cadastre seu acesso e comece a registrar despesas, consultar relatorios e encontrar oportunidades reais de economia.</p>
+            </div>
+            <div class="auth-stats">
+                <div class="auth-stat-pill">
+                    <span class="material-icons-outlined">person_add</span>
+                    <div>
+                        <strong>CADASTRO</strong>
+                        <small>acesso em poucos passos</small>
+                    </div>
+                </div>
+                <div class="auth-stat-pill">
+                    <span class="material-icons-outlined">insights</span>
+                    <div>
+                        <strong>RELATORIOS</strong>
+                        <small>visao clara dos gastos</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="auth-card auth-card-register">
+            <div class="auth-header">
+                <h2>Criar cadastro</h2>
+                <p>Configure suas credenciais de acesso.</p>
+            </div>
+            <form id="cadastroForm" class="auth-form">
+                <div class="form-group">
+                    <label for="cadastroEmail">Email</label>
+                    <div class="auth-input">
+                        <span class="material-icons-outlined">mail</span>
+                        <input type="email" id="cadastroEmail" required placeholder="nome@empresa.com" autocomplete="email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cadastroSenha">Senha</label>
+                    <div class="auth-input">
+                        <span class="material-icons-outlined">lock</span>
+                        <input type="password" id="cadastroSenha" required minlength="3" placeholder="Crie uma senha" autocomplete="new-password">
+                        <button type="button" class="auth-input-action" data-toggle-password="cadastroSenha" aria-label="Mostrar senha">
+                            <span class="material-icons-outlined">visibility</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cadastroConfirmarSenha">Confirmar senha</label>
+                    <div class="auth-input">
+                        <span class="material-icons-outlined">verified_user</span>
+                        <input type="password" id="cadastroConfirmarSenha" required minlength="3" placeholder="Repita sua senha" autocomplete="new-password">
+                        <button type="button" class="auth-input-action" data-toggle-password="cadastroConfirmarSenha" aria-label="Mostrar senha">
+                            <span class="material-icons-outlined">visibility</span>
+                        </button>
+                    </div>
+                </div>
+                <label class="auth-check">
+                    <input type="checkbox" id="acceptTerms" required>
+                    <span>Aceito criar minha conta no Financas Pro</span>
+                </label>
+                <button type="submit" class="btn btn-primary auth-submit">
+                    Criar conta <span class="material-icons-outlined" style="font-size:18px">arrow_forward</span>
+                </button>
+                <div class="auth-divider"><span>cadastro rapido</span></div>
+                <div class="auth-benefits">
+                    <span><span class="material-icons-outlined">check_circle</span> Painel financeiro</span>
+                    <span><span class="material-icons-outlined">check_circle</span> Despesas por categoria</span>
+                </div>
+            </form>
+            <p class="auth-switch">
+                Ja possui cadastro? <a href="login.html">Fazer login</a>
+            </p>
+        </section>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => { initCadastro(); });
+    </script>
+</body>
+</html>

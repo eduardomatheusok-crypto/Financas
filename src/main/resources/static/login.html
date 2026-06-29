@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financas Pro - Login</title>
+    <meta name="description" content="Acesse sua conta no Financas Pro">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body auth-login">
+    <main class="auth-layout">
+        <section class="auth-panel">
+            <div class="auth-brand">
+                <span class="material-icons-outlined">account_balance_wallet</span>
+                <strong>Financas Pro</strong>
+            </div>
+            <div class="auth-highlight">
+                <h2>Entre para acompanhar suas movimentacoes.</h2>
+                <p>Acesse sua central de controle financeiro. Monitore despesas, entenda seus gastos e encontre onde economizar.</p>
+            </div>
+            <div class="auth-stats">
+                <div class="auth-stat-pill">
+                    <span class="material-icons-outlined">schedule</span>
+                    <div>
+                        <strong>CONTROLE</strong>
+                        <small>24h controle diario</small>
+                    </div>
+                </div>
+                <div class="auth-stat-pill">
+                    <span class="material-icons-outlined">shield</span>
+                    <div>
+                        <strong>SEGURANCA</strong>
+                        <small>100% dados integrados</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="auth-card">
+            <div class="auth-header">
+                <h2>Login</h2>
+                <p>Bem-vindo de volta. Insira suas credenciais.</p>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <div class="auth-input">
+                        <span class="material-icons-outlined">mail</span>
+                        <input type="email" id="loginEmail" required placeholder="nome@empresa.com" autocomplete="email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="auth-label-row">
+                        <label for="loginSenha">Senha</label>
+                        <a href="#">Esqueceu a senha?</a>
+                    </div>
+                    <div class="auth-input">
+                        <span class="material-icons-outlined">lock</span>
+                        <input type="password" id="loginSenha" required placeholder="********" autocomplete="current-password">
+                        <button type="button" class="auth-input-action" data-toggle-password="loginSenha" aria-label="Mostrar senha">
+                            <span class="material-icons-outlined">visibility</span>
+                        </button>
+                    </div>
+                </div>
+                <label class="auth-check">
+                    <input type="checkbox" id="rememberDevice">
+                    <span>Lembrar neste dispositivo</span>
+                </label>
+                <button type="submit" class="btn btn-primary auth-submit">
+                    Entrar <span class="material-icons-outlined" style="font-size:18px">login</span>
+                </button>
+                <div class="auth-divider"><span>ou continue com</span></div>
+                <div class="auth-socials">
+                    <button type="button" class="auth-social-btn">
+                        <strong>G</strong> Google
+                    </button>
+                    <button type="button" class="auth-social-btn">
+                        <span class="material-icons-outlined">desktop_mac</span> Apple ID
+                    </button>
+                </div>
+            </form>
+            <p class="auth-switch">
+                Ainda nao tem conta? <a href="cadastro.html">Criar cadastro</a>
+            </p>
+        </section>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => { initLogin(); });
+    </script>
+</body>
+</html>

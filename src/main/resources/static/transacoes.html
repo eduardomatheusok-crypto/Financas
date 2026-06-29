@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças Pro — Transações</title>
+    <meta name="description" content="Gerencie suas transações financeiras - Finanças Pro">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand"><h1>Finanças Pro</h1><p>Controle de Gastos</p></div>
+        <nav class="sidebar-nav">
+            <a href="index.html"><span class="material-icons-outlined">dashboard</span> Início</a>
+            <a href="transacoes.html" class="active"><span class="material-icons-outlined">receipt_long</span> Transações</a>
+            <a href="relatorios.html"><span class="material-icons-outlined">analytics</span> Relatórios</a>
+            <a href="#"><span class="material-icons-outlined">settings</span> Configurações</a>
+        </nav>
+        <div class="sidebar-user">
+            <div class="sidebar-user-avatar" id="userAvatar">U</div>
+            <div class="sidebar-user-info"><p id="userName">Usuário Pro</p><span>Premium</span></div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <div class="topbar">
+            <div class="search-box">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" placeholder="Pesquisar transações..." id="searchInput">
+            </div>
+            <div class="topbar-actions">
+                <button class="icon-btn"><span class="material-icons-outlined">notifications</span></button>
+            </div>
+        </div>
+
+        <div class="page-header">
+            <div class="page-header-row">
+                <div>
+                    <h2>Minhas Transações</h2>
+                    <p>Gerencie despesas e identifique onde seu dinheiro esta indo.</p>
+                </div>
+                <div style="display:flex;gap:12px;">
+                    <button class="btn btn-outline" onclick="exportCSV()">
+                        <span class="material-icons-outlined" style="font-size:18px">download</span> Exportar CSV
+                    </button>
+                    <button class="btn btn-primary" onclick="openAddModal()">
+                        <span class="material-icons-outlined" style="font-size:18px">add</span> Nova Transação
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FILTERS -->
+        <div class="filters-bar">
+            <div class="filter-group">
+                <label>Período</label>
+                <select id="filterPeriod">
+                    <option value="30">Últimos 30 dias</option>
+                    <option value="7">Últimos 7 dias</option>
+                    <option value="90">Últimos 90 dias</option>
+                    <option value="all">Todos</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Tipo</label>
+                <div class="type-tabs">
+                    <button class="active" data-type="all">Todas</button>
+                    <button data-type="despesa">Despesas</button>
+                </div>
+            </div>
+            <div class="filter-group">
+                <label>Categoria</label>
+                <select id="filterCategory">
+                    <option value="all">Todas as categorias</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Status</label>
+                <select id="filterStatus">
+                    <option value="all">Todos os status</option>
+                    <option value="concluido">Concluído</option>
+                    <option value="pendente">Pendente</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Transação</th>
+                    <th>Categoria</th>
+                    <th>Data</th>
+                    <th>Status</th>
+                    <th>Valor</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="transactionsBody">
+                <!-- populated by JS -->
+            </tbody>
+        </table>
+        <div class="pagination">
+            <span id="paginationInfo">Mostrando 0 transações</span>
+            <div class="pagination-btns" id="paginationBtns"></div>
+        </div>
+    </main>
+
+    <!-- ADD/EDIT MODAL -->
+    <div class="modal-overlay" id="txModal">
+        <div class="modal">
+            <h3 id="modalTitle">Nova Transação</h3>
+            <div class="modal-mode-tabs" role="tablist" aria-label="Alternar formulario">
+                <button type="button" class="active" id="txModeButton" onclick="setModalMode('transacao')">
+                    <span class="material-icons-outlined">receipt_long</span> Lançamento
+                </button>
+                <button type="button" id="categoryModeButton" onclick="setModalMode('categoria')">
+                    <span class="material-icons-outlined">sell</span> Categoria
+                </button>
+            </div>
+            <form id="txForm">
+                <input type="hidden" id="txEditId">
+                <div class="form-group">
+                    <label for="txNome">Nome / Descrição</label>
+                    <input type="text" id="txNome" required placeholder="Ex: Supermercado Mundial">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="txValor">Valor (R$)</label>
+                        <input type="number" id="txValor" step="0.01" min="0.01" required placeholder="0,00">
+                    </div>
+                    <div class="form-group">
+                        <label for="txData">Data</label>
+                        <input type="date" id="txData" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="txCategoria">Categoria</label>
+                        <select id="txCategoria" required></select>
+                    </div>
+                    <input type="hidden" id="txUsuario">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+                </div>
+            </form>
+            <form id="categoryForm" hidden>
+                <div class="form-group">
+                    <label for="categoryNome">Nome da categoria</label>
+                    <input type="text" id="categoryNome" required placeholder="Ex: Alimentação, Transporte, Saúde">
+                </div>
+                <div class="tip-card category-tip">
+                    <h4>Categoria rápida</h4>
+                    <p>Depois de salvar, ela aparece nos filtros e fica disponível para novos lançamentos.</p>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar categoria</button>
+                    <button type="button" class="btn btn-outline" onclick="setModalMode('transacao')">Voltar ao lançamento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => { initTransacoes(); });
+    </script>
+</body>
+</html>

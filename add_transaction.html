@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#414754",
+                        "surface-bright": "#fcf8f9",
+                        "tertiary": "#0e0700",
+                        "primary-fixed": "#dde2f3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#241a09",
+                        "surface-container": "#f0edee",
+                        "on-tertiary-fixed-variant": "#524531",
+                        "surface-variant": "#e5e2e3",
+                        "on-secondary-container": "#596376",
+                        "inverse-on-surface": "#f3f0f1",
+                        "on-surface": "#1b1b1c",
+                        "tertiary-fixed-dim": "#d8c3a9",
+                        "primary-fixed-dim": "#c1c6d7",
+                        "secondary": "#555f71",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#f5dfc4",
+                        "on-error": "#ffffff",
+                        "primary-container": "#1a202c",
+                        "surface-container-high": "#eae7e8",
+                        "surface-tint": "#585e6c",
+                        "on-primary": "#ffffff",
+                        "primary": "#030813",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#d6e0f6",
+                        "on-tertiary-container": "#96856d",
+                        "secondary-fixed-dim": "#bdc7dc",
+                        "surface-container-highest": "#e5e2e3",
+                        "on-surface-variant": "#45474c",
+                        "on-secondary-fixed-variant": "#3d4759",
+                        "on-secondary-fixed": "#121c2c",
+                        "surface-container-low": "#f6f3f4",
+                        "surface": "#fcf8f9",
+                        "on-primary-container": "#828796",
+                        "outline-variant": "#c6c6cc",
+                        "outline": "#76777c",
+                        "on-primary-fixed": "#161c27",
+                        "background": "#fcf8f9",
+                        "tertiary-container": "#291e0d",
+                        "on-background": "#1b1b1c",
+                        "surface-dim": "#dcd9da",
+                        "inverse-primary": "#c1c6d7",
+                        "secondary-fixed": "#d9e3f9",
+                        "inverse-surface": "#313031"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin_desktop": "40px",
+                        "stack_lg": "24px",
+                        "sidebar_width": "260px",
+                        "base": "4px",
+                        "container_max_width": "1200px",
+                        "gutter": "24px",
+                        "stack_sm": "8px",
+                        "stack_md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Manrope"],
+                        "headline-xl": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "numeric-display": ["Manrope"],
+                        "headline-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "numeric-display": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .active-expense { color: #ba1a1a; border-color: #ba1a1a; background-color: #ffdad6; }
+        .active-income { color: #1b6d31; border-color: #1b6d31; background-color: #d7f4e1; }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background min-h-screen">
+<!-- Sidebar Navigation Shell -->
+<nav class="flex flex-col fixed left-0 top-0 h-full py-6 w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm dark:shadow-none z-50">
+<div class="px-6 mb-10">
+<h1 class="text-xl font-bold text-slate-900 dark:text-white font-headline-md">Finanças Pro</h1>
+<p class="text-xs text-slate-500 font-medium">Gestão Patrimonial</p>
+</div>
+<div class="flex-1 px-4 space-y-1">
+<a class="flex items-center px-4 py-3 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-50 transition-colors font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+                Início
+            </a>
+<a class="flex items-center px-4 py-3 rounded-lg text-slate-900 dark:text-white font-bold border-r-4 border-slate-900 dark:border-slate-50 bg-slate-50 dark:bg-slate-800 font-manrope text-sm" href="#">
+<span class="material-symbols-outlined mr-3">receipt_long</span>
+                Transações
+            </a>
+<a class="flex items-center px-4 py-3 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-50 transition-colors font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span>
+                Relatórios
+            </a>
+<a class="flex items-center px-4 py-3 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-50 transition-colors font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+                Configurações
+            </a>
+</div>
+<div class="px-4 mt-auto">
+<div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center gap-3">
+<img alt="Foto de perfil do usuário" class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a smiling person in a bright, modern office setting. High-key lighting emphasizes clarity and trust, with a background featuring soft bokeh of a contemporary workspace. The style is clean, corporate, and minimalist, consistent with a high-end financial management application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRcnUE-N9D2H6e9W9lBZbWYT6Qj34zFsV0eA64xQsHPZOauoBC10esO-SIERD7MlgxkMuJvoF9uB65-1hCkOUFCCUUjc7qhlma4D8lYYStSfPCjTt8fN15DJirTBfqEHXal7L6mO71u3Ize9mzgpDYYazKsc-8O8qQMJxbNWALUstf2YIaCyl1cGt3wzhB_rSj6Xne6PidRy3jA815AWUDeF7GZM2ABdbamLMn4W_ZNpbgDzOsfmIF8LPNoINO1VVG0cvPB0U9SL9V"/>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-white">Usuário Pro</p>
+<p class="text-xs text-slate-500">Premium</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col items-center justify-center p-gutter">
+<!-- Header for the section -->
+<div class="w-full max-w-2xl mb-8 flex justify-between items-center">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Novo Lançamento</h2>
+<p class="text-on-surface-variant font-body-sm">Adicione uma movimentação financeira rapidamente.</p>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-outline">close</span>
+</button>
+</div>
+<!-- Quick Entry Form Container -->
+<div class="w-full max-w-2xl bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] overflow-hidden border border-surface-variant">
+<!-- Type Selector (Tab Style) -->
+<div class="flex p-stack_sm bg-surface-container-low border-b border-surface-variant">
+<button class="flex-1 py-3 flex items-center justify-center gap-2 rounded-lg font-headline-md active-expense transition-all duration-200">
+<span class="material-symbols-outlined">trending_down</span>
+                    Despesa
+                </button>
+<button class="flex-1 py-3 flex items-center justify-center gap-2 rounded-lg font-headline-md text-on-surface-variant hover:bg-surface-container transition-all duration-200">
+<span class="material-symbols-outlined">trending_up</span>
+                    Receita
+                </button>
+</div>
+<form class="p-stack_lg space-y-stack_lg">
+<!-- Value Input (Prominent) -->
+<div class="text-center py-stack_md">
+<label class="block text-label-md text-on-surface-variant mb-2">VALOR DA TRANSAÇÃO</label>
+<div class="flex items-center justify-center gap-2">
+<span class="text-headline-lg font-numeric-display text-on-surface-variant">R$</span>
+<input class="w-full max-w-[240px] text-center font-numeric-display text-numeric-display bg-transparent border-none focus:ring-0 text-on-surface placeholder-outline-variant" placeholder="0,00" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack_lg">
+<!-- Description -->
+<div class="space-y-2">
+<label class="block font-label-md text-on-surface-variant">DESCRIÇÃO</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">edit_note</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-surface-container-lowest outline-none transition-all font-body-md" placeholder="Ex: Aluguel, Supermercado..." type="text"/>
+</div>
+</div>
+<!-- Date -->
+<div class="space-y-2">
+<label class="block font-label-md text-on-surface-variant">DATA</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">calendar_today</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-surface-container-lowest outline-none transition-all font-body-md" type="date"/>
+</div>
+</div>
+</div>
+<!-- Category Selector -->
+<div class="space-y-2">
+<label class="block font-label-md text-on-surface-variant">CATEGORIA</label>
+<div class="grid grid-cols-4 sm:grid-cols-6 gap-stack_sm">
+<!-- Category Item (Selected) -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-primary-container bg-primary-fixed transition-all group" type="button">
+<span class="material-symbols-outlined text-primary-container mb-1">shopping_cart</span>
+<span class="text-[10px] font-bold text-primary-container">Compras</span>
+</button>
+<!-- Category Item -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant hover:border-outline hover:bg-surface-container transition-all group" type="button">
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface mb-1">restaurant</span>
+<span class="text-[10px] font-medium text-on-surface-variant">Comida</span>
+</button>
+<!-- Category Item -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant hover:border-outline hover:bg-surface-container transition-all group" type="button">
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface mb-1">directions_car</span>
+<span class="text-[10px] font-medium text-on-surface-variant">Transporte</span>
+</button>
+<!-- Category Item -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant hover:border-outline hover:bg-surface-container transition-all group" type="button">
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface mb-1">home</span>
+<span class="text-[10px] font-medium text-on-surface-variant">Casa</span>
+</button>
+<!-- Category Item -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant hover:border-outline hover:bg-surface-container transition-all group" type="button">
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface mb-1">health_and_safety</span>
+<span class="text-[10px] font-medium text-on-surface-variant">Saúde</span>
+</button>
+<!-- Category Item -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant hover:border-outline hover:bg-surface-container transition-all group" type="button">
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface mb-1">more_horiz</span>
+<span class="text-[10px] font-medium text-on-surface-variant">Outros</span>
+</button>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex gap-4 pt-stack_md">
+<button class="flex-1 py-4 px-6 rounded-lg border border-outline-variant text-on-surface-variant font-headline-md hover:bg-surface-container transition-all" type="button">
+                        Cancelar
+                    </button>
+<!-- Main CTA (Dynamic Color - Currently set to Expense Style) -->
+<button class="flex-[2] py-4 px-6 rounded-lg bg-error text-on-error font-headline-md shadow-lg shadow-error/20 hover:scale-[1.02] active:scale-95 transition-all" type="submit">
+                        Salvar Despesa
+                    </button>
+</div>
+</form>
+</div>
+<!-- Recent Transactions Preview (Asymmetric Layout element) -->
+<div class="w-full max-w-2xl mt-12 grid grid-cols-1 md:grid-cols-3 gap-stack_md">
+<div class="md:col-span-1 p-stack_md bg-white rounded-xl shadow-sm border border-slate-100">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-[20px]">history</span>
+<h3 class="font-headline-md text-sm">Últimos Lançamentos</h3>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-body-sm">Padaria Central</span>
+<span class="text-xs font-bold text-error">- R$ 12,40</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-xs font-body-sm">Salário Mensal</span>
+<span class="text-xs font-bold text-primary">+ R$ 4.500</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-2 relative overflow-hidden rounded-xl h-full min-h-[120px] shadow-sm">
+<img alt="Financial context illustration" class="absolute inset-0 w-full h-full object-cover" data-alt="A macro shot of a sleek, dark-colored credit card resting on a minimalist marble surface. In the background, a soft-focused green plant adds a touch of organic warmth to the corporate environment. The lighting is diffused and professional, casting gentle shadows that emphasize the high-end, secure nature of the financial platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUEtxUeGxavw_zpjhywcLyppSohwc_j7NSKrot-nWwhBYmVWP5IE8gtWsfOGVE1sTdQ8UAyKce9SAT9NHo5EUBpDgXmgtiA2P-JUshTj0Jv_zY2qCwyTle32hjlLhLvsH6NpdH_T15BaBftJgrc5AerQK9gkfir3-OUwvvbDn7mR_4d0jGTgel-k9gB8Xp3z237ywGiHtmxkrlv4aMK7SigktkIrxrFH4UGOEN57ETYXbSRGgRIWmpkUL4FtdrxEPojucGifrERx3y"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-stack_md">
+<p class="text-white text-xs font-headline-md opacity-80 uppercase tracking-wider">Dica Financeira</p>
+<p class="text-white font-headline-md text-sm leading-tight">Organize seus gastos por categorias para uma visão clara do seu patrimônio.</p>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,28 @@
+Aqui guardo coisas relacionadas ao sistema:
+
+*Ideia:*
+
+Sistema de controle de gastos
+Usuario coloca o quanto está gastando na semana e ele tem um relatório diario, semanal, mensal e anual.
+Separar por categorias(usuario também pode criar categorias)
+Usuario cria as despesas
+Login e Cadastro(quero fazer algo mais bem planejado, como conectar pelo google através de uma API)
+**NÃO SE ESQUEÇA** senha deve ser convertida em hash(bcrypt) 
+
+-----------------------------------------------------------------------------------------------------
+
+*Extra para pesquisas:*
+Criar um chatbot para auxiliar como e onde deve diminuir os gastos
+Deve responder adequadamente ao tema de finanças
+Procurar como fazer isso de graça
+
+-----------------------------------------------------------------------------------------------------
+
+*Dicas caso o energúmeno esqueça:*
+**NÃO SE ESQUEÇA** você não tem tokens infinitos precisa trabalhar também.
+
+Stitch + Figma para frontend
+>skills úteis: brainstorm, frontend, backend
+Banco faça no h2 e use memória temporaria para não criar arquivos inúteis
+
+

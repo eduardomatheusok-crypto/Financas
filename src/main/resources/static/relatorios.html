@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças Pro — Relatórios e Insights</title>
+    <meta name="description" content="Relatórios e insights financeiros - Finanças Pro">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand"><h1>Finanças Pro</h1><p>Controle de Gastos</p></div>
+        <nav class="sidebar-nav">
+            <a href="index.html"><span class="material-icons-outlined">dashboard</span> Início</a>
+            <a href="transacoes.html"><span class="material-icons-outlined">receipt_long</span> Transações</a>
+            <a href="relatorios.html" class="active"><span class="material-icons-outlined">analytics</span> Relatórios</a>
+            <a href="#"><span class="material-icons-outlined">settings</span> Configurações</a>
+        </nav>
+        <div class="sidebar-user">
+            <div class="sidebar-user-avatar" id="userAvatar">U</div>
+            <div class="sidebar-user-info"><p id="userName">Usuário Pro</p><span>Premium</span></div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <div class="topbar">
+            <div class="search-box">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" placeholder="Pesquisar relatórios...">
+            </div>
+            <div class="topbar-actions">
+                <button class="btn btn-outline" onclick="window.print()">
+                    <span class="material-icons-outlined" style="font-size:18px">download</span> Exportar
+                </button>
+            </div>
+        </div>
+
+        <div class="page-header">
+            <h2>Relatórios e Insights</h2>
+            <p>Visão detalhada da sua saúde financeira este mês.</p>
+        </div>
+
+        <!-- INSIGHT CARDS -->
+        <section class="insights-grid">
+            <div class="card insight-card">
+                <span class="badge-top badge-mensal">MENSAL</span>
+                <div class="insight-icon blue"><span class="material-icons-outlined">restaurant</span></div>
+                <div class="insight-label">MAIOR DESPESA</div>
+                <h4 id="insightMaiorDespesa">Carregando...</h4>
+                <p id="insightMaiorDespesaDesc">Analisando seus dados...</p>
+            </div>
+            <div class="card card-dark insight-card">
+                <span class="badge-top badge-ai">INSIGHT AI</span>
+                <div class="insight-icon purple"><span class="material-icons-outlined">trending_up</span></div>
+                <div class="insight-label">ECONOMIA POTENCIAL</div>
+                <h4 id="insightEconomia">Analisando...</h4>
+                <p id="insightEconomiaDesc">Processando insights...</p>
+            </div>
+            <div class="card insight-card">
+                <span class="badge-top badge-alerta">ALERTA</span>
+                <div class="insight-icon red"><span class="material-icons-outlined">warning</span></div>
+                <div class="insight-label">LIMITE DE GASTOS</div>
+                <h4 id="insightLimite">Carregando...</h4>
+                <p id="insightLimiteDesc">Calculando limites...</p>
+            </div>
+        </section>
+
+        <!-- CHARTS ROW -->
+        <section class="reports-grid">
+            <div class="card">
+                <div class="chart-header">
+                    <div>
+                        <h3>Gastos por Mes</h3>
+                        <p>Historico de despesas para identificar excessos</p>
+                    </div>
+                    <div style="display:flex;gap:16px;font-size:0.8rem;">
+                        <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#ef4444;display:inline-block;"></span> Despesas</span>
+                    </div>
+                </div>
+                <div class="chart-area">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <div class="chart-header">
+                    <div>
+                        <h3>Despesas por Categoria</h3>
+                        <p>Distribuição percentual deste mês</p>
+                    </div>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:center;height:220px;position:relative;">
+                    <canvas id="donutChart"></canvas>
+                    <div class="donut-center" style="position:absolute;">
+                        <div class="donut-label">TOTAL</div>
+                        <div class="donut-value" id="donutTotal">R$ 0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => { initRelatorios(); });
+    </script>
+</body>
+</html>

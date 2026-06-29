@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças Pro — Adicionar Transação</title>
+    <meta name="description" content="Adicionar nova transação - Finanças Pro">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand"><h1>Finanças Pro</h1><p>Controle de Gastos</p></div>
+        <nav class="sidebar-nav">
+            <a href="index.html"><span class="material-icons-outlined">dashboard</span> Início</a>
+            <a href="transacoes.html"><span class="material-icons-outlined">receipt_long</span> Transações</a>
+            <a href="relatorios.html"><span class="material-icons-outlined">analytics</span> Relatórios</a>
+            <a href="#"><span class="material-icons-outlined">settings</span> Configurações</a>
+        </nav>
+        <div class="sidebar-user">
+            <div class="sidebar-user-avatar">U</div>
+            <div class="sidebar-user-info"><p>Usuário Pro</p><span>Premium</span></div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <div class="topbar">
+            <div class="search-box">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" placeholder="Buscar...">
+            </div>
+        </div>
+
+        <div class="page-header">
+            <h2>Novo Lançamento</h2>
+            <p>Adicione uma movimentação financeira rapidamente.</p>
+        </div>
+
+        <div class="card form-card">
+            <form id="addForm">
+                <div class="form-group">
+                    <label for="addNome">Descrição</label>
+                    <input type="text" id="addNome" required placeholder="Ex: Supermercado, Salário...">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addValor">Valor (R$)</label>
+                        <input type="number" id="addValor" step="0.01" min="0.01" required placeholder="0,00">
+                    </div>
+                    <div class="form-group">
+                        <label for="addData">Data</label>
+                        <input type="date" id="addData" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="addCategoria">Categoria</label>
+                        <select id="addCategoria" required></select>
+                    </div>
+                    <input type="hidden" id="addUsuario">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="material-icons-outlined" style="font-size:18px">save</span> Salvar Lançamento
+                    </button>
+                    <a href="transacoes.html" class="btn btn-outline">Cancelar</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- RECENT -->
+        <div class="card" style="margin-top:24px;">
+            <h3 style="font-size:1rem;font-weight:700;margin-bottom:16px;">Últimos Lançamentos</h3>
+            <div id="recentList"></div>
+        </div>
+
+        <div class="tip-card">
+            <h4>💡 Dica Financeira</h4>
+            <p>Organize seus gastos por categorias para uma visão clara do seu patrimônio.</p>
+        </div>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="app.js"></script>
+    <script>
+        const API_BASE = 'http://localhost:8081';
+        document.addEventListener('DOMContentLoaded', async () => {
+            document.getElementById('addData').valueAsDate = new Date();
+            // Load categories
+            try {
+                const cats = await apiGet('/categorias');
+                const sel = document.getElementById('addCategoria');
+                cats.forEach(c => { const o = document.createElement('option'); o.value = c.id; o.textContent = c.nome; sel.appendChild(o); });
+            } catch (e) { console.error(e); }
+            // Load recent
+            try {
+                const despesas = await apiGet('/despesas');
+                const recent = despesas.slice(-3).reverse();
+                const list = document.getElementById('recentList');
+                if (recent.length === 0) {
+                    list.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:16px;">Nenhum lançamento ainda</p>';
+                } else {
+                    list.innerHTML = recent.map(tx => `
+                        <div class="tx-item">
+                            <div class="tx-icon"><span class="material-icons-outlined">${getCatIcon(tx.categoria)}</span></div>
+                            <div class="tx-info">
+                                <div class="tx-name">${tx.nome}</div>
+                                <div class="tx-meta">${fmtDate(tx.data)} • ${tx.categoria}</div>
+                            </div>
+                            <div class="tx-amount negative">- ${fmt(tx.valor)}</div>
+                        </div>
+                    `).join('');
+                }
+            } catch (e) { console.error(e); }
+            // Form submit
+            document.getElementById('addForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const user = getLoggedUser();
+                if (!user || !user.id) {
+                    showToast('Faca login novamente para salvar o lancamento', 'error');
+                    return;
+                }
+                const body = {
+                    nome: document.getElementById('addNome').value,
+                    valor: parseFloat(document.getElementById('addValor').value),
+                    data: document.getElementById('addData').value,
+                    categoriaId: parseInt(document.getElementById('addCategoria').value),
+                    usuarioId: user.id
+                };
+                try {
+                    await apiPost('/despesas', body);
+                    showToast('Lançamento salvo com sucesso!');
+                    setTimeout(() => window.location.href = 'transacoes.html', 1200);
+                } catch (err) {
+                    showToast('Erro ao salvar lançamento', 'error');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

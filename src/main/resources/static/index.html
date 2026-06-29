@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças Pro — Dashboard</title>
+    <meta name="description" content="Dashboard de controle de gastos - Finanças Pro">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <h1>Finanças Pro</h1>
+            <p>Controle de Gastos</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="active">
+                <span class="material-icons-outlined">dashboard</span> Início
+            </a>
+            <a href="transacoes.html">
+                <span class="material-icons-outlined">receipt_long</span> Transações
+            </a>
+            <a href="relatorios.html">
+                <span class="material-icons-outlined">analytics</span> Relatórios
+            </a>
+            <a href="#" id="configLink">
+                <span class="material-icons-outlined">settings</span> Configurações
+            </a>
+        </nav>
+        <div class="sidebar-user">
+            <div class="sidebar-user-avatar" id="userAvatar">U</div>
+            <div class="sidebar-user-info">
+                <p id="userName">Usuário Pro</p>
+                <span>Premium</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <!-- TOP BAR -->
+        <div class="topbar">
+            <div class="search-box">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" placeholder="Buscar transações, contas ou suporte...">
+            </div>
+            <div class="topbar-actions">
+                <button class="icon-btn"><span class="material-icons-outlined">notifications</span></button>
+                <button class="icon-btn"><span class="material-icons-outlined">support_agent</span></button>
+            </div>
+        </div>
+
+        <!-- HERO ROW -->
+        <section class="hero-row">
+            <div class="card card-dark hero-balance">
+                <div class="label">TOTAL GASTO NO PERIODO</div>
+                <div class="amount" id="totalGastoPeriodo">R$ 0,00</div>
+                <div class="meta">
+                    <span class="badge-green" id="gastoResumo">0 lancamentos</span>
+                    <span class="updated">Atualizado agora</span>
+                </div>
+            </div>
+            <div class="card summary-card">
+                <div class="icon-circle green"><span class="material-icons-outlined">calculate</span></div>
+                <span class="card-label">Media</span>
+                <span class="card-sublabel">No periodo selecionado</span>
+                <span class="card-value" id="gastoMedio">R$ 0,00</span>
+            </div>
+            <div class="card summary-card">
+                <div class="icon-circle red"><span class="material-icons-outlined">north</span></div>
+                <span class="card-label red-label">Maior gasto</span>
+                <span class="card-sublabel">Lancamento mais alto</span>
+                <span class="card-value" id="maiorGasto">R$ 0,00</span>
+            </div>
+        </section>
+
+        <!-- CHART + RECENT TRANSACTIONS -->
+        <section class="content-row">
+            <div class="card">
+                <div class="chart-header">
+                    <div>
+                        <h3>Evolucao dos Gastos</h3>
+                        <p id="gastosChartSubtitle">Despesas registradas nos ultimos 7 dias</p>
+                    </div>
+                    <div class="chart-tabs">
+                        <button class="active" data-dashboard-period="7D">7D</button>
+                        <button data-dashboard-period="1M">1M</button>
+                        <button data-dashboard-period="1A">1A</button>
+                    </div>
+                </div>
+                <div class="chart-area">
+                    <canvas id="gastosChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <div class="tx-header">
+                    <h3>Transações</h3>
+                    <a href="transacoes.html">Ver todas</a>
+                </div>
+                <div id="recentTransactions">
+                    <!-- populated by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CHATBOT WIDGET -->
+    <div class="chatbot-widget" id="chatbotWidget">
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-brand">
+                    <span class="material-icons-outlined">smart_toy</span>
+                    <div>
+                        <strong>Mentor Pro</strong>
+                        <span>Online</span>
+                    </div>
+                </div>
+                <button class="chatbot-close" id="chatbotClose"><span class="material-icons-outlined">close</span></button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chat-msg bot-msg">
+                    <div class="msg-bubble">Olá! Sou seu Mentor Financeiro. Como posso ajudar com suas finanças hoje?</div>
+                </div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" id="chatbotInput" placeholder="Digite sua dúvida..." autocomplete="off">
+                <button id="chatbotSend"><span class="material-icons-outlined">send</span></button>
+            </div>
+        </div>
+        <button class="chatbot-fab" id="chatbotFab">
+            <span class="material-icons-outlined">chat</span>
+        </button>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initDashboard();
+        });
+    </script>
+</body>
+</html>
