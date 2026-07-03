@@ -4,6 +4,10 @@ import com.financas.Entity.Usuario;
 import com.financas.Repository.UsuarioRepository;
 import com.financas.dto.UsuarioRequest;
 import com.financas.dto.UsuarioResponse;
+import com.financas.exception.CredenciaisInvalidasException;
+import com.financas.exception.EmailJaCadastradoException;
+import com.financas.exception.EntidadeNaoEncontradaException;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +24,7 @@ public class UsuarioService {
 
     public UsuarioResponse cadastrarUsuario(UsuarioRequest request) {
         if (usuarioRepository.findByEmail(request.email()) != null) {
-            throw new RuntimeException("Email ja existente");
+            throw new EmailJaCadastradoException();
         }
 
         Usuario usuario = new Usuario();
@@ -35,7 +39,7 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findByEmail(email);
 
         if (usuario == null || !encoder.matches(senha, usuario.getSenha())) {
-            throw new RuntimeException("Email ou senha invalidos");
+            throw new CredenciaisInvalidasException();
         }
 
         return toResponse(usuario);
@@ -43,7 +47,7 @@ public class UsuarioService {
 
     public UsuarioResponse buscarPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Nao encontrado"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuario não encontrado"));
         return toResponse(usuario);
     }
 

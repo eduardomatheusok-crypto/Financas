@@ -9,6 +9,8 @@ import com.financas.Repository.UsuarioRepository;
 import com.financas.dto.DespesaRequest;
 import com.financas.dto.DespesaResponse;
 import com.financas.dto.RelatorioCategoriaDTO;
+import com.financas.exception.EntidadeNaoEncontradaException;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -78,17 +80,17 @@ public class DespesasService {
 
     private Despesa buscarDespesa(Long id) {
         return despesasRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Despesa nao encontrada"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Despesa nao encontrada"));
     }
 
     private Categoria buscarCategoria(Long id) {
         return categoriaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria nao encontrada"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Categoria nao encontrada"));
     }
 
     private Usuario buscarUsuario(Long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuario nao encontrado"));
     }
 
     private DespesaResponse toResponse(Despesa despesa) {
